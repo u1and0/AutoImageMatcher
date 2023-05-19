@@ -85,21 +85,7 @@ def find_most_similar_image(target_image_path: str, *images: str) -> str:
     ---
     most_similar_image: str - 最も酷似した画像のフルパス
     """
-    # max_similarity: float = 0
-    # most_similar_image: str = ""
-    #
-    # for image in images:
-    #     similarity = calculate_similarity(target_image_path, image)
-    #
-    #     if similarity > max_similarity:
-    #         max_similarity = similarity
-    #         most_similar_image = image
-    #
-    # return most_similar_image
-    #
-    # ここから上は古い単純な方法方法
-
-    # 降順ソートなので[0]スライスして尤もハイスコアのものを取得
+    # 降順ソートなので[0]スライスして最もハイスコアの画像を取得
     # (image_path, score)を[0]スライスしてimage_pathだけ取得
     return list_similar_images(target_image_path, *images)[0][0]
 
@@ -108,24 +94,6 @@ def display_notebook(image_path: str):
     """Jupyter Notebookに指定したパスの画像を表示する"""
     most_similar_image = cv2.imread(image_path)
     _, buf = cv2.imencode(".jpg", most_similar_image)
-    display(Image(data=buf.tobytes()))
-
-
-def main():
-    from Ipython.displey import display, Image
-    # テスト用の画像データ
-    target_image = "../data/145.jpg"
-    image_iter = (os.path.join("../data", f) for f in os.listdir("../data"))
-
-    # 最も類似度の高い画像を検索する
-    most_similar_image = find_most_similar_image(target_image, image_iter)
-
-    # 最も類似度の高い画像を表示する
-    # cv2.imshow("Most Similar Image", most_similar_image)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    img = cv2.imread(most_similar_image)
-    _, buf = cv2.imencode(".jpg", img)
     display(Image(data=buf.tobytes()))
 
 
