@@ -1,5 +1,4 @@
 from zipfile import ZipFile
-from docx import Document
 
 
 def extract_images_from_docx(docx_path: str) -> list[tuple[str, bin]]:
@@ -29,17 +28,8 @@ def extract_images_from_docx(docx_path: str) -> list[tuple[str, bin]]:
     return picture_list
 
 
-def image_iter(docx_file: str):
-    # docxファイルから画像を抽出する
-    image_list = extract_images_from_docx(docx_file)
-
-    # 画像の情報を表示する
-    for image_path, image_data in image_list:
-        yield image_path, image_data  # 一部のデータのみ表示
-
-
 if __name__ == "__main__":
-    for p, d in image_iter("sample.docx"):
+    for p, d in extract_images_from_docx("sample.docx"):
         print(p, d[:20])
 
 # result
