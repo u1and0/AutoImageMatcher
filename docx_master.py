@@ -6,18 +6,6 @@ def extract_images_from_docx(docx_path: str) -> list[tuple[str, bin]]:
     word/mediaから始まる主に画像ファイルを取得し、
     ( 画像ファイル名, 画像バイナリ)のタプルを複数含んだリストとして取得する。
     """
-    # python-docxを使う方法
-    #
-    # doc = Document(docx_path)
-    # images = []
-    #
-    # for rel in doc.part.rels.values():
-    #     if "image" in rel.reltype:
-    #         image_path = rel.target_part.partname[1:]
-    #         image_data = rel.target_part.blob
-    #         images.append((image_path, image_data))
-    #
-    # return images
     picture_list = []
     with ZipFile(docx_path, "r") as doxz:
         for item in doxz.infolist():
